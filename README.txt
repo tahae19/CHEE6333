@@ -16,3 +16,5 @@ Settings -> Pages -> Deploy from a branch -> main -> /(root) -> Save
 
 Your site should appear at:
 https://YOUR-USERNAME.github.io/CHEE6333/
+
+Update: H01-H10 now include a sticky Previous / Study Hub / Next navigation bar.

@@ -33,7 +33,65 @@ table{border-collapse:collapse;width:100%;margin:14px 0 20px;font-size:.94rem}th
 }
 
 .mjx-container{display:inline-block;max-width:100%;vertical-align:middle}.eq mjx-container[display="true"]{display:block;text-align:center}.eq svg{max-width:100%;height:auto}.mjx-container svg{overflow:visible}
-</style></head><body><main>
+</style>
+<style id="chee6333-site-nav-style">
+.chee6333-site-nav{
+  position:sticky; top:0; z-index:99999;
+  width:100%;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(120,135,150,.28);
+  box-shadow:0 2px 10px rgba(20,35,50,.06);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+}
+.chee6333-site-nav .nav-inner{
+  max-width:1120px; margin:0 auto; padding:9px 16px;
+  display:grid; grid-template-columns:1fr auto 1fr;
+  align-items:center; gap:10px;
+}
+.chee6333-site-nav a,
+.chee6333-site-nav .nav-disabled{
+  display:inline-flex; align-items:center; gap:6px;
+  min-height:36px; padding:7px 11px;
+  border:1px solid #d7e0e7; border-radius:9px;
+  text-decoration:none!important;
+  font-size:13px; font-weight:700; line-height:1;
+  color:#173b57!important; background:#fff;
+  white-space:nowrap;
+}
+.chee6333-site-nav a:hover{
+  background:#f2f7fa; border-color:#aebfcb;
+  text-decoration:none!important;
+}
+.chee6333-site-nav .nav-prev{justify-self:start}
+.chee6333-site-nav .nav-home{justify-self:center}
+.chee6333-site-nav .nav-next{justify-self:end}
+.chee6333-site-nav .nav-disabled{
+  color:#9aa5ad!important; background:#f7f8f9;
+  cursor:default;
+}
+@media(max-width:560px){
+  .chee6333-site-nav .nav-inner{padding:7px 8px;gap:6px}
+  .chee6333-site-nav a,
+  .chee6333-site-nav .nav-disabled{font-size:11px;padding:6px 8px;min-height:32px}
+  .chee6333-site-nav .nav-home .home-long{display:none}
+}
+@media print{
+  .chee6333-site-nav{display:none!important}
+}
+</style>
+
+</head><body>
+
+<nav class="chee6333-site-nav" aria-label="CHEE 6333 lecture navigation">
+  <div class="nav-inner">
+    <a class="nav-prev" href="../H08/" aria-label="Previous lecture">← H08</a>
+    <a class="nav-home" href="../" aria-label="CHEE 6333 Study Hub">⌂ <span class="home-long">Study Hub</span></a>
+    <a class="nav-next" href="../H10/" aria-label="Next lecture">H10 →</a>
+  </div>
+</nav>
+<main>
 <header class="ltr">
   <div class="meta">CHEE 6333 — Transport Processes</div>
   <h1>Handout 09 — Finite Fourier Transforms I</h1>
