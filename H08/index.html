@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CHEE 6333 - Handout 08 - Separation of Variables</title>
+<style>
+:root{
+  --ink:#17202a; --muted:#667085; --line:#d0d5dd; --red:#9d2235; --red2:#c73b52;
+  --navy:#17324d; --blue:#275d8c; --paper:#ffffff; --soft:#f7f8fa; --exam:#fff4e5;
+  --important:#eef6ff; --remember:#eefbf3; --mistake:#fff0f1; --correction:#fff8db;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#eef1f4;color:var(--ink);font-family:"Noto Sans",Arial,sans-serif;line-height:1.58}
+main{max-width:980px;margin:26px auto;background:var(--paper);box-shadow:0 2px 20px rgba(0,0,0,.09);padding:44px 58px 70px}
+a{color:#174f7a;text-decoration:none} a:hover{text-decoration:underline}
+.cover{min-height:520px;display:flex;flex-direction:column;justify-content:center;border-top:8px solid var(--red);border-bottom:1px solid var(--line);padding:34px 0 48px;margin-bottom:30px}
+.kicker{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:800}
+h1{font-size:2.55rem;line-height:1.12;margin:.4rem 0 .7rem;color:#111827;letter-spacing:-.025em}
+.subtitle{font-size:1.18rem;color:var(--navy);font-weight:650}.meta{margin-top:20px;color:var(--muted);font-size:.93rem}
+.fa-title{direction:rtl;text-align:right;font-family:"Noto Naskh Arabic","Noto Sans Arabic",Tahoma,sans-serif;font-size:1.38rem;line-height:1.9;margin-top:24px;color:#344054}
+h2{font-size:1.63rem;margin:2.25rem 0 1rem;padding-bottom:.36rem;border-bottom:2px solid var(--red);color:#101828;break-after:avoid}
+h3{font-size:1.18rem;margin:1.7rem 0 .6rem;color:var(--navy);break-after:avoid}
+h4{font-size:1rem;margin:1.25rem 0 .45rem;color:#344054;break-after:avoid}
+p{margin:.5rem 0 .82rem}.small{font-size:.88rem;color:var(--muted)}
+.toc{columns:2;column-gap:36px;margin:0;padding-left:1.2rem}.toc li{break-inside:avoid;margin:.32rem 0}.toc .sub{font-size:.9rem;margin-left:.75rem;color:#475467}
+.notation{width:100%;border-collapse:collapse;margin:12px 0 22px;font-size:.94rem}.notation th,.notation td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}.notation th{text-align:left;background:var(--soft);color:#344054}.notation td:first-child{white-space:nowrap;font-family:"Cambria Math","DejaVu Serif",serif;font-size:1.04rem}
+.eq{direction:ltr;text-align:center;font-family:"Cambria Math","STIX Two Text","DejaVu Serif",serif;font-size:1.16rem;line-height:1.55;margin:14px auto 18px;padding:10px 12px;background:#fbfcfd;border:1px solid #e4e7ec;border-radius:7px;overflow-wrap:anywhere;break-inside:avoid}
+.eq.compact{font-size:1.02rem}.eq .label{float:right;font-family:"Noto Sans",Arial,sans-serif;font-size:.78rem;color:var(--muted)}
+.mathline{font-family:"Cambria Math","DejaVu Serif",serif;direction:ltr;text-align:left;white-space:normal}
+.frac{display:inline-flex;vertical-align:middle;flex-direction:column;align-items:center;line-height:1.07;margin:0 .13em}.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 .12em .06em}.frac>span:last-child{padding:.06em .12em 0}
+.sup{vertical-align:super;font-size:.72em}.sub{vertical-align:sub;font-size:.72em}
+.callout{border-left:5px solid var(--blue);background:var(--important);padding:13px 16px;margin:14px 0 18px;border-radius:5px;break-inside:avoid}.callout.exam{background:var(--exam);border-left-color:#c46a00}.callout.remember{background:var(--remember);border-left-color:#258750}.callout.mistake{background:var(--mistake);border-left-color:#c43245}.callout.correction{background:var(--correction);border-left-color:#b8860b}.callout strong{display:block;margin-bottom:3px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.badge{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:999px;background:#e9eef5;color:#344054}.badge.exam{background:#fff0d5;color:#7a4400}.badge.important{background:#e5f1ff;color:#174f7a}.badge.remember{background:#e3f7ea;color:#166534}.badge.mistake{background:#fee4e7;color:#8a2332}
+.fa{direction:rtl;text-align:right;font-family:"Noto Naskh Arabic","Noto Sans Arabic",Tahoma,sans-serif;font-size:1.02rem;line-height:2.0;background:#faf7f2;border-right:4px solid #b8956b;padding:10px 15px;margin:12px 0 18px;border-radius:5px;break-inside:avoid}.fa strong{font-weight:800}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:12px 0 18px}.card{border:1px solid var(--line);border-radius:8px;padding:14px 16px;break-inside:avoid}.card h4{margin-top:0}.card ul{margin:.45rem 0 .2rem;padding-left:1.2rem}
+ul,ol{padding-left:1.35rem}li{margin:.28rem 0}
+.steps{counter-reset:step;list-style:none;padding:0;margin:12px 0}.steps li{counter-increment:step;position:relative;padding:0 0 14px 48px}.steps li:before{content:counter(step);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:white;font-weight:800}.steps li+li:after{content:"";position:absolute;left:14px;top:-18px;height:21px;border-left:2px solid #cfd7df}
+.figure{border:1px solid var(--line);border-radius:8px;padding:12px;margin:14px 0 20px;break-inside:avoid}.figure figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}.source{font-size:.78rem;color:#667085;margin-top:6px;font-style:italic}
+.table{width:100%;border-collapse:collapse;margin:12px 0 18px;font-size:.92rem}.table th,.table td{border:1px solid var(--line);padding:8px 9px;vertical-align:top}.table th{background:#f5f7fa;text-align:left}.table td.mathline{font-size:.98rem}
+hr.soft{border:0;border-top:1px solid var(--line);margin:24px 0}
+.no-break{break-inside:avoid}.page-break{break-before:page}.source-summary{font-size:.86rem;color:#475467;background:#f8fafc;padding:12px 14px;border:1px solid #e4e7ec;border-radius:7px}
+@media(max-width:760px){body{background:white}main{margin:0;box-shadow:none;padding:24px 20px 50px}.toc{columns:1}.grid2{grid-template-columns:1fr}h1{font-size:2rem}.eq{font-size:1.02rem;overflow-x:auto;text-align:left}.cover{min-height:auto}}
+@page{size:Letter;margin:.56in .58in .62in .58in}
+@media print{body{background:white;font-size:10.4pt;line-height:1.46}main{max-width:none;margin:0;box-shadow:none;padding:0}a{color:inherit;text-decoration:none}.cover{min-height:8.5in;page-break-after:always;padding-top:.65in}.toc-section{page-break-after:always}h2{font-size:16.5pt;margin-top:18pt}h3{font-size:12.5pt}.fa{font-size:10.2pt;line-height:1.75}.eq{font-size:11.2pt;padding:7px 9px;margin:9px 0 12px}.callout,.card,.figure,.table,.notation{break-inside:avoid}.page-break{break-before:page}.source{font-size:7.7pt}.small{font-size:8.4pt}}
+</style>
+</head>
+<body>
+<main>
+<section class="cover" id="top">
+  <div class="kicker">CHEE 6333 · Transport Processes · Lecture 08</div>
+  <h1>Separation of Variables</h1>
+  <div class="subtitle">Master Study Notes — Handout 08 + In-Class Work + Lecture Transcripts</div>
+  <div class="fa-title">جداسازی متغیرها برای مسائل ناپایای انتقال مومنتوم</div>
+  <div class="meta">Primary structure: <b>Handout 08</b> · Integrated practice: <b>Handout 08 In Class</b> · Supplemental detail: lecture and in-class transcripts</div>
+  <div class="meta">Course references shown on the handout: BSL §8.3 · Deen §§6.5–6.6</div>
+  <div class="badges"><span class="badge important">Study-Friendly</span><span class="badge exam">Exam Review</span><span class="badge remember">OneNote / Print</span></div>
+</section>
+
+<section class="toc-section" id="toc">
+<h2>Table of Contents</h2>
+<ol class="toc">
+  <li><a href="#notation">Notation &amp; Symbols</a></li>
+  <li><a href="#scope">1. Lecture Scope &amp; Applicability</a></li>
+  <li><a href="#startup">2. Startup Flow Between Parallel Plates</a><div class="sub"><a href="#governing">Governing equation · IC · BCs</a></div></li>
+  <li><a href="#nondim">3. Non-dimensionalization</a></li>
+  <li><a href="#decomp">4. Steady + Transient Decomposition</a></li>
+  <li><a href="#separate">5. Separation of Variables</a><div class="sub"><a href="#eigen">Eigenvalues and eigenfunctions</a></div></li>
+  <li><a href="#basis">6. Inner Product &amp; Orthonormal Basis</a></li>
+  <li><a href="#coeff">7. Coefficients &amp; Final Startup-Flow Solution</a></li>
+  <li><a href="#class1">8. In-Class Problem 1: Derivative Boundary Conditions</a></li>
+  <li><a href="#class2">9. In-Class Problem 2: Mixed Boundary Conditions</a></li>
+  <li><a href="#differences">10. Handout vs. In-Class Differences</a></li>
+  <li><a href="#keyeq">11. Key Equations</a></li>
+  <li><a href="#keybc">12. Key Assumptions &amp; Boundary Conditions</a></li>
+  <li><a href="#pattern">13. Common Problem-Solving Pattern</a></li>
+  <li><a href="#exam">14. What I Need to Know for the Exam</a></li>
+</ol>
+
+<h2 id="notation">Notation &amp; Symbols</h2>
+<table class="notation">
+<tr><th>Symbol</th><th>Meaning in this lecture</th><th>Units / status</th></tr>
+<tr><td>v<sub>x</sub>(y,t)</td><td>x-direction velocity between parallel plates</td><td>m·s<sup>−1</sup></td></tr>
+<tr><td>v<sub>0</sub></td><td>Velocity imposed on the moving plate at t = 0</td><td>m·s<sup>−1</sup></td></tr>
+<tr><td>b</td><td>Gap between the two plates</td><td>m</td></tr>
+<tr><td>ν = μ/ρ</td><td>Kinematic viscosity</td><td>m<sup>2</sup>·s<sup>−1</sup></td></tr>
+<tr><td>ϕ</td><td>Dimensionless velocity, ϕ = v<sub>x</sub>/v<sub>0</sub></td><td>dimensionless</td></tr>
+<tr><td>η</td><td>Dimensionless position, η = y/b</td><td>dimensionless</td></tr>
+<tr><td>τ</td><td>Dimensionless time, τ = νt/b<sup>2</sup></td><td>dimensionless</td></tr>
+<tr><td>ϕ<sub>∞</sub></td><td>Long-time steady part of the dimensionless solution</td><td>dimensionless</td></tr>
+<tr><td>ϕ<sub>t</sub></td><td>Transient part, chosen to vanish as τ → ∞</td><td>dimensionless</td></tr>
+<tr><td>f(η), g(τ)</td><td>Separated spatial and temporal functions for the transient problem</td><td>functions</td></tr>
+<tr><td>c, c<sub>n</sub></td><td>Separation constant / discrete eigenvalues</td><td>dimensionless in the main example</td></tr>
+<tr><td>D<sub>n</sub></td><td>Fourier-sine expansion coefficient in the startup-flow example</td><td>dimensionless</td></tr>
+<tr><td>k</td><td>Constant in the in-class diffusion-type PDE, k∂²v/∂x² = ∂v/∂t</td><td>length²/time</td></tr>
+<tr><td>L</td><td>Finite spatial domain length for in-class examples</td><td>m</td></tr>
+<tr><td>δ<sub>mn</sub></td><td>Kronecker delta used to state orthogonality</td><td>dimensionless</td></tr>
+</table>
+</section>
+
+<section id="scope">
+<h2>1. Lecture Scope &amp; Applicability</h2>
+<p><b>Learning objective:</b> apply the method of separation of variables to solve two-dimensional momentum-transport problems. Here, “two-dimensional” means the dependent variable depends on one spatial coordinate and on time.</p>
+<div class="callout important"><strong>Important — when separation of variables is applicable</strong> The lecture states that the method is used for <b>linear boundary-value problems</b> with at least one <b>finite (bounded) spatial dimension</b>, and with boundaries located at <b>constant coordinate values</b>.</div>
+<p>The in-class recap repeats the same three ideas and adds the practical solution pattern: assume a product form such as <span class="mathline">V(x,y) = X(x)Y(y)</span>, then use an inner product and an orthonormal basis to determine expansion coefficients.</p>
+<div class="fa"><strong>توضیح فارسی</strong> این روش زمانی مناسب است که معادله خطی باشد، دست‌کم یک راستای مکانی بازه‌ی محدود داشته باشد و مرزها در مختصات ثابت قرار گرفته باشند. ایده‌ی اصلی تبدیل یک معادله با مشتقات جزئی به چند معادله‌ی معمولی است.</div>
+<div class="source">Source trail: Handout 08, pp. 1–2; Handout 08 In Class, p. 2; lecture and in-class transcripts.</div>
+</section>
+
+<section id="startup">
+<h2>2. Startup Flow Between Parallel Plates</h2>
+<p>The main lecture example is the time-dependent version of simple Couette flow. Two parallel plates are separated by a distance <span class="mathline">b</span>. Initially the fluid and both plates are at rest. At <span class="mathline">t = 0</span>, the bottom plate starts moving in the <span class="mathline">+x</span> direction at constant speed <span class="mathline">v<sub>0</sub></span>; the upper plate remains fixed.</p>
+
+<figure class="figure">
+<svg viewBox="0 0 800 300" width="100%" role="img" aria-label="Parallel-plate startup flow geometry">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#17324d"/></marker></defs>
+  <rect x="120" y="70" width="560" height="18" rx="2" fill="#5b6573"/>
+  <rect x="120" y="228" width="560" height="18" rx="2" fill="#5b6573"/>
+  <text x="690" y="84" font-size="18" fill="#344054">fixed wall</text>
+  <line x1="200" y1="214" x2="355" y2="214" stroke="#9d2235" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="220" y="200" font-size="18" fill="#9d2235">v₀, +x</text>
+  <text x="690" y="242" font-size="18" fill="#344054">moving wall</text>
+  <line x1="98" y1="228" x2="98" y2="88" stroke="#17324d" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="72" y="150" font-size="18" fill="#17324d">y</text>
+  <text x="70" y="246" font-size="17" fill="#344054">0</text>
+  <text x="70" y="88" font-size="17" fill="#344054">b</text>
+  <path d="M150 225 C260 200, 410 155, 650 90" fill="none" stroke="#4f84b5" stroke-width="4" stroke-dasharray="9 7"/>
+  <text x="385" y="140" font-size="17" fill="#4f84b5">long-time linear profile</text>
+</svg>
+<figcaption>Clean reconstruction of the coordinate system used in the lecture: the moving wall is at y = 0 and the stationary wall is at y = b.</figcaption>
+</figure>
+
+<h3 id="governing">2.1 Assumptions and velocity field</h3>
+<div class="grid2">
+<div class="card"><h4>Velocity form</h4><div class="eq compact">v<sub>x</sub> = v<sub>x</sub>(y,t), &nbsp; v<sub>y</sub> = 0, &nbsp; v<sub>z</sub> = 0</div><p>The only nonzero velocity component is in the x direction, but it changes across the gap and during startup.</p></div>
+<div class="card"><h4>Forcing terms</h4><p>The lecture explicitly notes that there is <b>no x-direction pressure gradient</b> and gravity does not act in the x direction. Therefore the viscous diffusion term is the only surviving term on the right side of the x-momentum equation.</p></div>
+</div>
+
+<h3>2.2 Continuity and x-momentum equation</h3>
+<div class="eq">Continuity: &nbsp; ∂v<sub>x</sub>/∂x = 0</div>
+<div class="eq">∂v<sub>x</sub>/∂t = ν ∂²v<sub>x</sub>/∂y², &nbsp;&nbsp; ν = μ/ρ</div>
+<p>This is a diffusion equation for momentum: viscous effects spread the influence of the moving wall through the finite gap.</p>
+
+<h3>2.3 Initial and boundary conditions</h3>
+<table class="table">
+<tr><th>Condition</th><th>Mathematical statement</th><th>Physical meaning</th></tr>
+<tr><td>Initial condition</td><td class="mathline">v<sub>x</sub>(y,0) = 0, &nbsp; 0 ≤ y ≤ b</td><td>Fluid initially at rest.</td></tr>
+<tr><td>Boundary condition 1</td><td class="mathline">v<sub>x</sub>(0,t) = v<sub>0</sub>, &nbsp; t &gt; 0</td><td>No slip at the moving lower wall.</td></tr>
+<tr><td>Boundary condition 2</td><td class="mathline">v<sub>x</sub>(b,t) = 0, &nbsp; t ≥ 0</td><td>No slip at the fixed upper wall.</td></tr>
+</table>
+<div class="callout exam"><strong>Exam</strong> Before doing any separation, write the PDE, the domain, the initial condition, and both boundary conditions. The in-class work repeatedly treats boundary conditions as the key step that determines the correct basis functions.</div>
+<div class="fa"><strong>معنی فیزیکی</strong> در لحظه‌ی شروع، فقط دیواره‌ی پایینی حرکت می‌کند. اثر این حرکت به‌کمک لزجت به داخل سیال نفوذ می‌کند و پس از گذشت زمان کافی، پروفیل سرعت به حالت خطی پایا می‌رسد.</div>
+<div class="source">Source trail: Handout 08, p. 2; lecture transcript.</div>
+</section>
+
+<section id="nondim">
+<h2>3. Non-dimensionalization</h2>
+<p>The handout introduces dimensionless variables to remove constants from the PDE and reduce bookkeeping errors:</p>
+<div class="eq">ϕ = v<sub>x</sub>/v<sub>0</sub>, &nbsp;&nbsp; η = y/b, &nbsp;&nbsp; τ = νt/b²</div>
+<div class="grid2">
+<div class="card"><h4>Why these scales?</h4><ul><li><span class="mathline">v<sub>0</sub></span> is the imposed characteristic velocity.</li><li><span class="mathline">b</span> is the natural geometric length scale.</li><li><span class="mathline">b²/ν</span> is the associated viscous diffusion timescale.</li></ul></div>
+<div class="card"><h4>Derivative transformations shown in lecture</h4><div class="mathline">∂v<sub>x</sub>/∂t = (v<sub>0</sub>ν/b²) ∂ϕ/∂τ</div><div class="mathline">∂²v<sub>x</sub>/∂y² = (v<sub>0</sub>/b²) ∂²ϕ/∂η²</div></div>
+</div>
+<p>Substituting and canceling the common factor gives the parameter-free problem</p>
+<div class="eq">∂ϕ/∂τ = ∂²ϕ/∂η²</div>
+<div class="eq compact">IC: ϕ(η,0) = 0 &nbsp;&nbsp; | &nbsp;&nbsp; BCs: ϕ(0,τ) = 1, &nbsp; ϕ(1,τ) = 0</div>
+<div class="callout remember"><strong>Remember</strong> The lecture says the problem can be solved dimensionally, but non-dimensionalization makes the algebra easier and reduces the chance of losing constants.</div>
+<div class="fa"><strong>نکته‌ی مهم</strong> بی‌بُعدسازی فقط ظاهر مسئله را ساده نمی‌کند؛ مقیاس زمانی طبیعی مسئله را هم نشان می‌دهد. این مقیاس تعیین می‌کند چه زمانی اثر لزجت در کل فاصله‌ی بین دو صفحه پخش می‌شود.</div>
+<div class="source">Source trail: Handout 08, p. 3; lecture transcript.</div>
+</section>
+
+<section id="decomp">
+<h2>4. Steady + Transient Decomposition</h2>
+<p>Because the upper wall is a finite distance away, the lecture states that the flow must approach a time-independent state at long time.</p>
+<h3>4.1 Long-time steady solution</h3>
+<div class="eq">0 = d²ϕ<sub>∞</sub>/dη², &nbsp;&nbsp; ϕ<sub>∞</sub>(0)=1, &nbsp; ϕ<sub>∞</sub>(1)=0</div>
+<div class="eq">ϕ<sub>∞</sub>(η) = 1 − η</div>
+<p>The full solution is then written as a steady part minus a transient part:</p>
+<div class="eq">ϕ(η,τ) = ϕ<sub>∞</sub>(η) − ϕ<sub>t</sub>(η,τ) = (1−η) − ϕ<sub>t</sub>(η,τ)</div>
+<h3>4.2 PDE, IC, and BCs for the transient term</h3>
+<div class="eq">∂ϕ<sub>t</sub>/∂τ = ∂²ϕ<sub>t</sub>/∂η²</div>
+<div class="eq compact">IC: ϕ<sub>t</sub>(η,0) = 1−η &nbsp;&nbsp; | &nbsp;&nbsp; BCs: ϕ<sub>t</sub>(0,τ)=0, &nbsp; ϕ<sub>t</sub>(1,τ)=0</div>
+<div class="callout important"><strong>Important — why this decomposition is useful</strong> The original dimensionless boundary conditions are nonhomogeneous. Subtracting the steady solution creates a transient problem with <b>homogeneous boundary conditions</b>, which is the form used for the sine eigenfunctions.</div>
+<div class="callout exam"><strong>Break 1 / Exam-style check</strong> The handout explicitly asks you to verify the transient PDE, IC, and BCs by substituting <span class="mathline">ϕ = ϕ<sub>∞</sub> − ϕ<sub>t</sub></span> into the original dimensionless problem.</div>
+<div class="fa"><strong>توضیح فارسی</strong> بخش پایا شرایط مرزی غیرصفر را در خود جذب می‌کند. پس از جدا کردن آن، بخش گذرا در هر دو مرز صفر می‌شود و برای روش جداسازی متغیرها مناسب‌تر است.</div>
+<div class="source">Source trail: Handout 08, pp. 4–5; lecture transcript.</div>
+</section>
+
+<section id="separate">
+<h2>5. Separation of Variables</h2>
+<h3>5.1 Product assumption</h3>
+<p>Assume the transient field is separable:</p>
+<div class="eq">ϕ<sub>t</sub>(η,τ) = f(η)g(τ)</div>
+<p>Substitution into the transient PDE gives</p>
+<div class="eq">f(η) dg/dτ = g(τ) d²f/dη²</div>
+<p>Divide by <span class="mathline">fg</span>:</p>
+<div class="eq"><span class="frac"><span>1</span><span>g</span></span> dg/dτ = <span class="frac"><span>1</span><span>f</span></span> d²f/dη² = −c²</div>
+<p>The left side is a function only of time and the right side only of space; therefore both must be equal to the same constant. The lecture chooses <span class="mathline">−c²</span>.</p>
+<div class="callout remember"><strong>Remember — sign of the separation constant</strong> For this problem, the handout/lecture uses a negative separation constant to obtain nontrivial sine modes that satisfy zero values at both ends. The “Break 2” slide asks what happens for zero or positive separation constants.</div>
+<h3>5.2 Two ODEs</h3>
+<div class="eq compact">dg/dτ = −c²g &nbsp;&nbsp; ⟹ &nbsp;&nbsp; g(τ)=A exp(−c²τ)</div>
+<div class="eq compact">d²f/dη² + c²f = 0 &nbsp;&nbsp; ⟹ &nbsp;&nbsp; f(η)=B sin(cη)+E cos(cη)</div>
+
+<h3 id="eigen">5.3 Boundary conditions select discrete eigenvalues</h3>
+<p>Apply <span class="mathline">f(0)=0</span>:</p>
+<div class="eq compact">E = 0</div>
+<p>Apply <span class="mathline">f(1)=0</span>:</p>
+<div class="eq compact">sin(c) = 0 &nbsp;&nbsp; ⟹ &nbsp;&nbsp; c<sub>n</sub> = nπ</div>
+<p>Thus the nonzero spatial modes are</p>
+<div class="eq">f<sub>n</sub>(η) = B<sub>n</sub> sin(nπη), &nbsp;&nbsp; n = 1,2,3,…</div>
+<p>The handout first notes integer values of both signs; because sine is odd, positive-index modes are sufficient for the series. The <span class="mathline">n=0</span> sine mode vanishes.</p>
+<h3>5.4 General transient series</h3>
+<div class="eq">ϕ<sub>t</sub>(η,τ) = Σ<sub>n=1</sub><sup>∞</sup> D<sub>n</sub> exp(−n²π²τ) sin(nπη)</div>
+<p>Applying the transient initial condition at <span class="mathline">τ=0</span> requires</p>
+<div class="eq">1−η = Σ<sub>n=1</sub><sup>∞</sup> D<sub>n</sub> sin(nπη)</div>
+<p>The remaining task is to determine the coefficients <span class="mathline">D<sub>n</sub></span>; this motivates the inner-product and orthogonality material on the next slides.</p>
+<div class="fa"><strong>توضیح فارسی</strong> شرایط مرزی فقط بعضی از مقادیر ثابت جداسازی را اجازه می‌دهند. به همین دلیل پاسخ به جای یک تابع منفرد، به صورت جمع بی‌نهایت از مُدهای مجاز نوشته می‌شود و هر مُد با زمان به صورت نمایی کاهش می‌یابد.</div>
+<div class="source">Source trail: Handout 08, pp. 6–7; lecture transcript.</div>
+</section>
+
+<section id="basis">
+<h2>6. Inner Product &amp; Orthonormal Basis</h2>
+<h3>6.1 Vector analogy used in the handout</h3>
+<p>The lecture connects function expansions to the familiar Cartesian vector basis. Orthogonal vectors have zero dot product, and a vector component is found by projection along a basis vector. The same idea is used to “project out” one coefficient from an infinite function expansion.</p>
+<div class="eq compact">ê<sub>i</sub> · ê<sub>j</sub> = δ<sub>ij</sub></div>
+<h3>6.2 Inner product for functions</h3>
+<p>For functions on <span class="mathline">[a,b]</span>, the handout defines</p>
+<div class="eq">⟨f,g⟩ = ∫<sub>a</sub><sup>b</sup> f(x)g(x)w(x) dx, &nbsp;&nbsp; w(x) &gt; 0</div>
+<p>The slide lists the dot-product properties:</p>
+<ol>
+<li><span class="mathline">⟨f,f⟩ = ∫ f²w dx &gt; 0</span> for nonzero <span class="mathline">f</span>.</li>
+<li><span class="mathline">⟨f,g⟩ = ⟨g,f⟩</span>.</li>
+<li><span class="mathline">⟨f,g+h⟩ = ⟨f,g⟩ + ⟨f,h⟩</span>.</li>
+<li><span class="mathline">⟨cf,g⟩ = c⟨f,g⟩</span> for a constant <span class="mathline">c</span>.</li>
+</ol>
+<h3>6.3 Orthogonality used for the sine basis</h3>
+<div class="eq">∫<sub>0</sub><sup>1</sup> sin(nπη) sin(mπη) dη = { 0, m≠n ; 1/2, m=n }</div>
+<div class="callout correction"><strong>Terminology note from the lecture materials</strong> The handout calls the sine family an “orthonormal basis,” but with the unscaled functions <span class="mathline">sin(nπη)</span> the self-inner-product shown on the slide is <span class="mathline">1/2</span>, not 1. Operationally, the lecture uses this orthogonality relation exactly as written to extract coefficients.</div>
+<p>The in-class lecture repeats the same projection idea for a cosine basis and emphasizes that the inner product isolates a single mode because cross terms vanish.</p>
+<div class="fa"><strong>معنی فیزیکی و ریاضی</strong> ضرب داخلی ابزار انتخاب یک مُد مشخص از میان جمع بی‌نهایت مُدهاست. وقتی دو تابع پایه متعامد باشند، ضرب و انتگرال‌گیری باعث حذف همه‌ی مُدهای دیگر می‌شود.</div>
+<div class="source">Source trail: Handout 08, pp. 8–11; in-class transcript recap.</div>
+</section>
+
+<section id="coeff">
+<h2>7. Coefficients &amp; Final Startup-Flow Solution</h2>
+<p>Start from the initial-condition expansion</p>
+<div class="eq">1−η = Σ<sub>n=1</sub><sup>∞</sup> D<sub>n</sub> sin(nπη)</div>
+<p>Multiply by <span class="mathline">sin(mπη)</span> and integrate from <span class="mathline">0</span> to <span class="mathline">1</span>:</p>
+<div class="eq compact">∫<sub>0</sub><sup>1</sup>(1−η)sin(mπη)dη = Σ D<sub>n</sub>∫<sub>0</sub><sup>1</sup>sin(nπη)sin(mπη)dη</div>
+<p>The handout evaluates the left integral as <span class="mathline">1/(mπ)</span>. Orthogonality makes the right side <span class="mathline">D<sub>m</sub>/2</span>, so</p>
+<div class="eq">D<sub>m</sub> = 2/(mπ)</div>
+<h3>7.1 Final dimensionless velocity</h3>
+<div class="eq">ϕ(η,τ) = (1−η) − Σ<sub>n=1</sub><sup>∞</sup> [2/(nπ)] exp(−n²π²τ) sin(nπη)</div>
+<h3>7.2 Interpretation</h3>
+<ul>
+<li>The first term <span class="mathline">1−η</span> is the steady Couette profile.</li>
+<li>Every transient mode is multiplied by <span class="mathline">exp(−n²π²τ)</span>, so the transient vanishes as <span class="mathline">τ→∞</span>.</li>
+<li>Higher-<span class="mathline">n</span> modes decay faster because the exponent contains <span class="mathline">n²</span>.</li>
+</ul>
+<div class="callout exam"><strong>Exam</strong> Be able to move from the initial-condition series to the coefficient formula by multiplying by the matching basis function and integrating over the bounded domain.</div>
+<div class="callout mistake"><strong>Common Mistake</strong> Do not forget the minus sign in the decomposition <span class="mathline">ϕ = ϕ<sub>∞</sub> − ϕ<sub>t</sub></span>. That sign determines the initial condition for the transient term and the sign in the final solution.</div>
+<div class="fa"><strong>جمع‌بندی فارسی</strong> پاسخ نهایی از یک بخش پایا و مجموعه‌ای از جمله‌های گذرا ساخته می‌شود. جمله‌های گذرا به مرور زمان محو می‌شوند و فقط پروفیل خطی باقی می‌ماند.</div>
+<div class="source">Source trail: Handout 08, p. 10; lecture transcript.</div>
+</section>
+
+<section id="class1" class="page-break">
+<h2>8. In-Class Problem 1: Derivative Boundary Conditions</h2>
+<p>The in-class session changes the boundary conditions while keeping the same diffusion-type PDE. This is deliberate practice in selecting the correct eigenfunction family from the boundary conditions.</p>
+<div class="eq">k ∂²v/∂x² = ∂v/∂t, &nbsp;&nbsp; 0&lt;x&lt;L, &nbsp; t&gt;0</div>
+<div class="eq compact">IC: v(x,0)=f(x) &nbsp;&nbsp; | &nbsp;&nbsp; BCs: (∂v/∂x)<sub>x=0</sub>=0, &nbsp; (∂v/∂x)<sub>x=L</sub>=0</div>
+<div class="callout important"><strong>Physical boundary condition discussed in class</strong> If <span class="mathline">v</span> is a velocity profile for a Newtonian fluid, zero velocity gradient corresponds to zero shear stress — the free-surface (liquid–gas) type boundary condition introduced earlier in the course.</div>
+<h3>8.1 Separate the variables</h3>
+<div class="eq">v(x,t)=F(x)G(t)</div>
+<div class="eq compact">F″/F = (1/k)(G′/G) = −c²</div>
+<div class="eq compact">F″ + c²F = 0 &nbsp;&nbsp; | &nbsp;&nbsp; G′ + kc²G = 0</div>
+<h3>8.2 Apply derivative boundary conditions to the spatial ODE</h3>
+<p>The correct general spatial solution is</p>
+<div class="eq compact">F(x)=A cos(cx)+B sin(cx)</div>
+<p>From <span class="mathline">F′(0)=0</span>, <span class="mathline">B=0</span>. From <span class="mathline">F′(L)=0</span>:</p>
+<div class="eq">sin(cL)=0 &nbsp;&nbsp; ⟹ &nbsp;&nbsp; c<sub>n</sub>=nπ/L</div>
+<div class="callout correction"><strong>Correction Note — handwritten annotation</strong> On the in-class annotated page, one line appears to write <span class="mathline">F=A cos(cx)+B cos(cx)</span>. The derivative written immediately below it and the subsequent boundary-condition step require the standard form <span class="mathline">F=A cos(cx)+B sin(cx)</span>. The corrected form is used here.</div>
+<h3>8.3 Special n = 0 mode</h3>
+<p>This is the major difference from the sine-series example in the main handout. Here <span class="mathline">n=0</span> gives a nonzero constant spatial mode.</p>
+<div class="eq compact">F<sub>n</sub>(x)=A<sub>n</sub> cos(nπx/L), &nbsp; n=0,1,2,…</div>
+<div class="eq compact">n=0: G′<sub>0</sub>=0 ⟹ G<sub>0</sub>=constant</div>
+<div class="eq compact">n&gt;0: G<sub>n</sub>(t)=exp[−k n²π²t/L²]</div>
+<h3>8.4 General series solution</h3>
+<div class="eq">v(x,t)=A<sub>0</sub> + Σ<sub>n=1</sub><sup>∞</sup> A<sub>n</sub> exp(−k n²π²t/L²) cos(nπx/L)</div>
+<h3>8.5 Apply the initial condition and project onto the cosine basis</h3>
+<div class="eq compact">f(x)=A<sub>0</sub> + Σ<sub>n=1</sub><sup>∞</sup> A<sub>n</sub> cos(nπx/L)</div>
+<p>The in-class derivation multiplies by <span class="mathline">cos(mπx/L)</span>, integrates from <span class="mathline">0</span> to <span class="mathline">L</span>, and treats the zero mode separately:</p>
+<div class="eq">A<sub>0</sub> = (1/L) ∫<sub>0</sub><sup>L</sup> f(x)dx</div>
+<div class="eq">A<sub>n</sub> = (2/L) ∫<sub>0</sub><sup>L</sup> f(x)cos(nπx/L)dx, &nbsp; n≥1</div>
+<h3>8.6 Final in-class expression</h3>
+<div class="eq compact">v(x,t) = (1/L)∫<sub>0</sub><sup>L</sup>f(x)dx + (2/L)Σ<sub>n=1</sub><sup>∞</sup>[∫<sub>0</sub><sup>L</sup>f(x)cos(nπx/L)dx] exp(−k n²π²t/L²) cos(nπx/L)</div>
+<div class="callout exam"><strong>Exam — basis selection from BCs</strong> Dirichlet-type zero-value boundaries in the main lecture led to sine functions. Zero-derivative boundaries in class led to cosine functions and required special handling of the <span class="mathline">n=0</span> constant mode.</div>
+<div class="fa"><strong>نکته‌ی فارسی</strong> تغییر نوع شرط مرزی، خانواده‌ی توابع پایه را عوض می‌کند. در شرط مشتق صفر، تابع کسینوسی طبیعی است و مُد ثابت نیز از بین نمی‌رود.</div>
+<div class="source">Source trail: Handout 08 In Class, pp. 3–6; in-class transcript.</div>
+</section>
+
+<section id="class2">
+<h2>9. In-Class Problem 2: Mixed Boundary Conditions</h2>
+<p>The second in-class problem asks for appropriate basis functions when one boundary is a value condition and the other is a derivative condition.</p>
+<div class="eq">k ∂²v/∂x² = ∂v/∂t, &nbsp; 0&lt;x&lt;L, &nbsp; t&gt;0, &nbsp; v(x,0)=f(x)</div>
+<table class="table">
+<tr><th>Case</th><th>Boundary conditions on the slide</th><th>Recorded in-class result</th></tr>
+<tr><td>(a)</td><td class="mathline">(∂v/∂x)<sub>x=0</sub>=0; &nbsp; v(L,t)=0</td><td class="mathline">cos[(n+1/2)πx/L], &nbsp; n=0,1,2,…</td></tr>
+<tr><td>(b)</td><td class="mathline">v(0,t)=0; &nbsp; (∂v/∂x)<sub>x=L</sub>=0</td><td>The surviving annotated PDF states the prompt, but no completed derivation/result is recorded on the following page or in the transcript.</td></tr>
+</table>
+<p>For case (a), the class note says to think of the cosine family as shifted by <span class="mathline">π/2</span> so that the value vanishes at <span class="mathline">x=L</span> while the derivative vanishes at <span class="mathline">x=0</span>:</p>
+<div class="eq">F<sub>n</sub>(x) ∝ cos[(n+1/2)πx/L]</div>
+<div class="callout remember"><strong>Remember</strong> The point of this problem is not a new PDE. It is to recognize that <b>boundary conditions determine the admissible eigenfunctions</b>.</div>
+<div class="fa"><strong>هدف تمرین</strong> در شرط‌های مرزی ترکیبی باید تابعی انتخاب شود که در یک مرز مقدار صفر و در مرز دیگر شیب صفر داشته باشد. انتخاب تابع پایه مستقیماً از همین دو شرط می‌آید.</div>
+<div class="source">Source trail: Handout 08 In Class, p. 7; in-class transcript. Part (b) is preserved as an uncompleted class prompt rather than filled in from outside material.</div>
+</section>
+
+<section id="differences">
+<h2>10. Handout vs. In-Class Differences</h2>
+<table class="table">
+<tr><th>Feature</th><th>Main Handout 08</th><th>In-Class Handout 08</th></tr>
+<tr><td>Primary physical example</td><td>Startup flow between two parallel plates</td><td>General diffusion-type PDE used to practice different boundary conditions</td></tr>
+<tr><td>Boundary type emphasized</td><td>Zero-value transient BCs after steady/transient decomposition</td><td>Zero-derivative BCs, then mixed value/derivative BCs</td></tr>
+<tr><td>Spatial basis</td><td class="mathline">sin(nπη)</td><td class="mathline">cos(nπx/L) for derivative BCs; half-integer cosine family shown for one mixed case</td></tr>
+<tr><td>Zero mode</td><td>Sine n=0 mode vanishes</td><td>Cosine n=0 mode is a nonzero constant and must be handled separately</td></tr>
+<tr><td>Coefficient extraction</td><td>Project onto sine basis over 0 to 1</td><td>Project onto cosine basis over 0 to L</td></tr>
+</table>
+<div class="callout mistake"><strong>Common Mistake</strong> Do not memorize “separation of variables means sine series.” The class intentionally changes the boundary conditions to show that the admissible basis may be sine, cosine, or a shifted/half-integer family.</div>
+<div class="fa"><strong>تفاوت اصلی</strong> روش حل در هر دو منبع یکسان است، اما نوع شرط مرزی توابع پایه را تغییر می‌دهد. بنابراین قبل از نوشتن سری باید شرایط مرزی بررسی شوند.</div>
+</section>
+
+<section id="keyeq" class="page-break">
+<h2>11. Key Equations</h2>
+<div class="card no-break">
+<div class="eq compact">Startup momentum diffusion: &nbsp; ∂v<sub>x</sub>/∂t = ν ∂²v<sub>x</sub>/∂y²</div>
+<div class="eq compact">Dimensionless variables: &nbsp; ϕ=v<sub>x</sub>/v<sub>0</sub>, &nbsp; η=y/b, &nbsp; τ=νt/b²</div>
+<div class="eq compact">Dimensionless PDE: &nbsp; ∂ϕ/∂τ = ∂²ϕ/∂η²</div>
+<div class="eq compact">Steady state: &nbsp; ϕ<sub>∞</sub>=1−η</div>
+<div class="eq compact">Decomposition: &nbsp; ϕ=(1−η)−ϕ<sub>t</sub></div>
+<div class="eq compact">Separated transient: &nbsp; ϕ<sub>t</sub>=f(η)g(τ)</div>
+<div class="eq compact">Separated ODEs: &nbsp; g′=−c²g, &nbsp; f″+c²f=0</div>
+<div class="eq compact">Main eigenfunctions: &nbsp; sin(nπη)</div>
+<div class="eq compact">Main coefficients: &nbsp; D<sub>n</sub>=2/(nπ)</div>
+<div class="eq compact">Final startup solution: &nbsp; ϕ=(1−η)−Σ<sub>n=1</sub><sup>∞</sup>[2/(nπ)]e<sup>−n²π²τ</sup>sin(nπη)</div>
+<div class="eq compact">Derivative-BC class eigenfunctions: &nbsp; cos(nπx/L), including n=0</div>
+</div>
+</section>
+
+<section id="keybc">
+<h2>12. Key Assumptions &amp; Boundary Conditions</h2>
+<div class="grid2">
+<div class="card"><h4>Main startup-flow assumptions</h4><ul><li>Velocity only in the x direction.</li><li>Velocity varies with y and t.</li><li>No x-direction pressure gradient.</li><li>Gravity has no x component in the equation used.</li><li>Newtonian constant-property form is used through constant ν.</li></ul></div>
+<div class="card"><h4>Main startup-flow conditions</h4><ul><li>Initially at rest.</li><li>No slip at moving wall.</li><li>No slip at fixed wall.</li><li>After steady/transient split, transient BCs are homogeneous.</li></ul></div>
+</div>
+<div class="card"><h4>In-class derivative boundary condition</h4><p>For the velocity interpretation discussed in class, a zero derivative at the boundary corresponds to zero shear stress at a free surface.</p></div>
+<div class="fa"><strong>مرور فارسی</strong> فرض‌ها باید قبل از شروع حل نوشته شوند. در مسئله‌ی اصلی، فشار و گرانش در راستای حرکت نقشی ندارند و تغییرات سرعت فقط در فاصله‌ی بین صفحات و در زمان رخ می‌دهد.</div>
+</section>
+
+<section id="pattern">
+<h2>13. Common Problem-Solving Pattern</h2>
+<ol class="steps">
+<li><b>State the domain, PDE, IC, and BCs.</b> Identify the bounded coordinate and what each boundary condition means.</li>
+<li><b>Non-dimensionalize when helpful.</b> In the main example this removes all parameters from the PDE.</li>
+<li><b>Make boundary conditions homogeneous.</b> If needed, split the solution into steady + transient parts.</li>
+<li><b>Assume a product solution.</b> Write the transient as a spatial function times a time function.</li>
+<li><b>Separate.</b> Divide by the product so a function of space equals a function of time; set both equal to a separation constant.</li>
+<li><b>Solve the spatial eigenvalue problem first.</b> Apply boundary conditions to determine allowable eigenvalues and basis functions.</li>
+<li><b>Solve the time ODE for each mode.</b> Keep special modes such as n = 0 when they do not vanish.</li>
+<li><b>Superpose all admissible modes.</b> Write the infinite series.</li>
+<li><b>Use the initial condition to determine coefficients.</b> Multiply by the matching basis function and integrate over the bounded domain.</li>
+<li><b>Check limits and BCs.</b> Confirm the initial profile and long-time behavior.</li>
+</ol>
+<div class="fa"><strong>الگوی حل</strong> ابتدا شرایط مرزی نوع توابع پایه را تعیین می‌کنند، سپس شرط اولیه ضرایب هر مُد را مشخص می‌کند. این ترتیب در مثال اصلی و تمرین کلاس مشترک است.</div>
+</section>
+
+<section id="exam">
+<h2>14. What I Need to Know for the Exam</h2>
+<div class="callout exam"><strong>Core skill 1 — know when the method applies</strong> Linear boundary-value problem; at least one bounded spatial direction; fixed coordinate boundaries.</div>
+<div class="callout exam"><strong>Core skill 2 — set up the startup-flow problem</strong> Be able to write the simplified momentum PDE and the correct initial/no-slip boundary conditions, then non-dimensionalize it.</div>
+<div class="callout exam"><strong>Core skill 3 — create homogeneous BCs</strong> Recognize when a steady + transient decomposition is needed and derive the transient IC/BCs.</div>
+<div class="callout exam"><strong>Core skill 4 — execute separation cleanly</strong> Product form → separation constant → spatial and time ODEs → boundary-condition eigenvalues.</div>
+<div class="callout exam"><strong>Core skill 5 — choose the basis from the boundary conditions</strong> Zero values at both ends lead to the sine family in the main example; zero derivatives at both ends lead to the cosine family in class; mixed conditions require shifted/half-integer modes.</div>
+<div class="callout exam"><strong>Core skill 6 — use orthogonality to find coefficients</strong> Know why multiplying by one basis function and integrating isolates its coefficient. Be able to treat a nonvanishing n = 0 mode separately.</div>
+<div class="callout exam"><strong>Core skill 7 — interpret the answer</strong> Identify steady and transient parts and explain why transient modes decay in time.</div>
+<div class="callout mistake"><strong>High-risk mistakes to avoid</strong> Wrong BC type; forgetting the steady/transient split; choosing sine/cosine before applying BCs; dropping the n=0 cosine mode; forgetting the integration interval; losing the sign in the transient decomposition.</div>
+<div class="fa"><strong>برای امتحان</strong> مهم‌ترین مهارت این است که از روی معادله و شرایط مرزی، مسیر حل را خودت بسازی. حفظ کردن پاسخ نهایی کافی نیست؛ باید بتوانی نوع تابع پایه، مقادیر مجاز و ضرایب سری را مرحله‌به‌مرحله به دست آوری.</div>
+
+<hr class="soft"/>
+<div class="source-summary"><b>Source control.</b> This master version is restricted to Handout 08, Handout 08 In Class, and their corresponding transcripts. No external theory or worked example was inserted. One obvious handwritten algebraic typo in the in-class notes is explicitly flagged as a Correction Note; the uncompleted mixed-BC part (b) is intentionally left uncompleted rather than filled from outside sources.</div>
+<p class="small" style="text-align:center;margin-top:24px">CHEE 6333 · Handout 08 · Master Study Version</p>
+</section>
+</main>
+</body>
+</html>
