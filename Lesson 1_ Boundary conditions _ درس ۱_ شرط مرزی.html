@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lesson 1: Boundary conditions | درس ۱: شرط مرزی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --paper:#EEF2F4;--sheet:#FFFFFF;--ink:#1A2733;--muted:#5B6B78;--rule:#CCD5DC;
+  --fluid:#0D6E78;--fluidbg:#DCEFF1;--oxide:#A8322A;--wall:#8794A0;--box:#B8862A;--boxbg:#FBF5E8;--good:#2E7D4F;--air:#F4F7F9;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#131B22;--sheet:#1B252E;--ink:#E4EAEE;--muted:#95A5B1;--rule:#2F3D48;
+  --fluid:#4FB7C1;--fluidbg:#173338;--oxide:#E0685E;--wall:#5A6874;--box:#D9AE55;--boxbg:#2A2519;--good:#6CC08E;--air:#18222A;}}
+:root[data-theme="dark"]{
+  --paper:#131B22;--sheet:#1B252E;--ink:#E4EAEE;--muted:#95A5B1;--rule:#2F3D48;
+  --fluid:#4FB7C1;--fluidbg:#173338;--oxide:#E0685E;--wall:#5A6874;--box:#D9AE55;--boxbg:#2A2519;--good:#6CC08E;--air:#18222A;}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Vazirmatn",Tahoma,sans-serif;font-size:17px;line-height:1.8}
+.en{direction:ltr;text-align:left;font-family:"Source Sans 3","Segoe UI",sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:14px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.top h1{font-size:18px;margin:0;font-weight:800}
+.top .en{font-size:15px;color:var(--muted)}
+.dots{display:flex;gap:6px;direction:ltr}
+.dots button{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);background:transparent;padding:0;cursor:pointer}
+.dots button.on{background:var(--ink)}
+.dots button.done{border-color:var(--good);background:var(--good)}
+.card{display:none;background:var(--sheet);border:1px solid var(--rule);margin-top:14px}
+.card.on{display:block}
+.scene{display:block;width:100%;height:auto;background:var(--sheet);border-bottom:1px solid var(--rule);direction:ltr}
+.scene text{font-family:"Source Sans 3",sans-serif}
+.body{padding:16px 20px 20px}
+.tag{font-size:13px;color:var(--muted)}
+h2.en{font-size:24px;margin:2px 0 0;font-weight:700;line-height:1.3}
+h2.fa{font-size:19px;margin:0 0 10px;font-weight:600;color:var(--muted)}
+p.en{font-size:18px;margin:10px 0 2px}
+p.fa{margin:0 0 10px;color:var(--muted);font-size:16px}
+.ansbox{border:2px solid var(--box);background:var(--boxbg);padding:8px 14px;margin:12px 0;font-size:18px}
+.ansbox small{display:block;font-size:13px;color:var(--muted)}
+.eq{font-family:"Source Sans 3",sans-serif;font-weight:600;white-space:nowrap}
+.words{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.words span{border:1px solid var(--rule);padding:0 10px;font-size:14px;background:var(--paper)}
+.words span b{font-family:"Source Sans 3",sans-serif;direction:ltr;unicode-bidi:isolate}
+.q{margin-top:14px;border-top:1px dashed var(--rule);padding-top:12px}
+.q .en{font-weight:600;margin:0}
+.q .fa{font-size:15px;color:var(--muted);margin:0 0 8px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.opts button{font:inherit;font-family:"Source Sans 3",sans-serif;font-size:17px;background:var(--sheet);color:var(--ink);border:2px solid var(--rule);padding:8px;cursor:pointer;direction:ltr}
+.opts button.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent)}
+.opts button.no{border-color:var(--oxide)}
+.fb{min-height:1.8em;margin-top:8px}
+.fb .en{font-size:16px}
+.fb .fa{font-size:15px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px;direction:ltr}
+.nav button{font:inherit;font-size:16px;padding:8px 20px;border:2px solid var(--ink);background:var(--sheet);color:var(--ink);cursor:pointer}
+.nav button.primary{background:var(--ink);color:var(--paper)}
+.nav button:disabled{opacity:.35;cursor:default}
+button:focus-visible{outline:3px solid var(--fluid);outline-offset:2px}
+.sum{width:100%;border-collapse:collapse;font-size:15px}
+.sum td{border:1px solid var(--rule);padding:8px;vertical-align:top}
+.sum td.en{font-size:16px}
+.calm{font-size:15px;color:var(--muted);margin-top:10px}
+@media (max-width:520px){h2.en{font-size:21px}p.en{font-size:17px}.body{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><h1>درس ۱: شرط مرزی</h1><div class="en">Lesson 1: Boundary conditions</div></div>
+    <div class="dots" id="dots" aria-label="progress"></div>
+  </div>
+
+  <!-- 1 -->
+  <article class="card" data-scene="fixed">
+    <svg class="scene" viewBox="0 0 360 220"></svg>
+    <div class="body">
+      <div class="tag">Rule 1 · قاعده‌ی ۱</div>
+      <h2 class="en">Fluid sticks to the wall</h2>
+      <h2 class="fa">سیال به دیواره می‌چسبد</h2>
+      <p class="en">At a solid wall, the fluid velocity equals the wall velocity. A fixed wall means <span class="eq">v = 0</span>.</p>
+      <p class="fa">روی دیواره‌ی جامد، سرعت سیال با سرعت دیواره برابر است. دیواره‌ی ساکن یعنی سرعت صفر. در شکل ببین: نقطه‌های نزدیک دیواره تقریباً حرکت نمی‌کنند و وسط از همه سریع‌تر است.</p>
+      <div class="words"><span><b>no-slip</b> = نلغزیدن، چسبیدن</span><span><b>wall</b> = دیواره</span><span><b>boundary condition (BC)</b> = شرط مرزی</span></div>
+      <div class="q" data-a="0">
+        <p class="en">Both walls are fixed. What is v at the bottom wall?</p>
+        <p class="fa">هر دو دیواره ساکن‌اند. سرعت روی دیواره‌ی پایین چقدر است؟</p>
+        <div class="opts"><button>v = 0</button><button>v = maximum</button><button>v = U</button></div>
+        <div class="fb" data-ok-en="Correct. The fluid sticks to the fixed wall." data-ok-fa="درست. سیال به دیواره‌ی ساکن چسبیده." data-no-en="Look at the dots near the wall: they barely move." data-no-fa="به نقطه‌های کنار دیواره نگاه کن. تقریباً تکان نمی‌خورند."></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2 -->
+  <article class="card" data-scene="moving">
+    <svg class="scene" viewBox="0 0 360 220"></svg>
+    <div class="body">
+      <div class="tag">Rule 1, moving wall · همان قاعده، دیواره‌ی متحرک</div>
+      <h2 class="en">If the wall moves, the fluid moves with it</h2>
+      <h2 class="fa">اگر دیواره حرکت کند، سیال هم همراهش حرکت می‌کند</h2>
+      <p class="en">The top plate moves with speed <span class="eq">U</span>. The fluid touching it also moves with <span class="eq">U</span>. The bottom plate is fixed, so <span class="eq">v = 0</span> there.</p>
+      <p class="fa">مثل دسته‌ی کارت: کارت رویی با دستت می‌آید و کارت پایینی روی میز می‌ماند. قاعده همان قاعده‌ی ۱ است: سرعت سیال = سرعت دیواره.</p>
+      <div class="words"><span><b>plate</b> = صفحه</span><span><b>moving wall</b> = دیواره‌ی متحرک</span></div>
+      <div class="q" data-a="1">
+        <p class="en">The top plate moves with U. What is v of the fluid touching the top plate?</p>
+        <p class="fa">صفحه‌ی بالا با سرعت U حرکت می‌کند. سرعت سیالِ چسبیده به آن چقدر است؟</p>
+        <div class="opts"><button>v = 0</button><button>v = U</button><button>v = U/2</button></div>
+        <div class="fb" data-ok-en="Correct. Fluid velocity = wall velocity." data-ok-fa="درست. سرعت سیال = سرعت دیواره." data-no-en="The wall moves, and the fluid sticks to it." data-no-fa="دیواره حرکت می‌کند و سیال به آن چسبیده."></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3 -->
+  <article class="card" data-scene="wire">
+    <svg class="scene" viewBox="0 0 360 220"></svg>
+    <div class="body">
+      <div class="tag">Exam 2025, Problem 2(b) · امتحان ۲۰۲۵، سؤال ۲(b)، ۲ نمره</div>
+      <h2 class="en">Wire coating: two walls, one moving</h2>
+      <h2 class="fa">wire coating: دو دیواره، یکی متحرک</h2>
+      <p class="en">The wire (radius <span class="eq">r₁</span>) is pulled with speed <span class="eq">U</span>. The die (radius <span class="eq">r₂</span>) is fixed.</p>
+      <p class="fa">سیم وسط است و حرکت می‌کند. die دیواره‌ی بیرونی است و ساکن است. این همان سؤالی است که قبلاً با هم جواب دادیم.</p>
+      <div class="ansbox en"><small>Write this in the exam:</small>At r = r₁: v<sub>z</sub> = U &nbsp;&nbsp;&nbsp; At r = r₂: v<sub>z</sub> = 0</div>
+      <div class="words"><span><b>wire</b> = سیم</span><span><b>die</b> = قالب، لوله‌ی بیرونی</span><span><b>radius</b> = شعاع</span></div>
+      <div class="q" data-a="0">
+        <p class="en">The die does not move. What is v<sub>z</sub> at r = r₂?</p>
+        <p class="fa">die حرکت نمی‌کند. سرعت در r = r₂ چقدر است؟</p>
+        <div class="opts"><button>v<sub>z</sub> = 0</button><button>v<sub>z</sub> = U</button></div>
+        <div class="fb" data-ok-en="Correct. That is 2 exam points." data-ok-fa="درست. این ۲ نمره‌ی امتحان بود." data-no-en="U is on the wire. The die is fixed." data-no-fa="U مال سیم است. die ساکن است."></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4 -->
+  <article class="card" data-scene="hele">
+    <svg class="scene" viewBox="0 0 360 220"></svg>
+    <div class="body">
+      <div class="tag">Exam 2025, Problem 3(d) · امتحان ۲۰۲۵، سؤال ۳(d)، ۲ نمره</div>
+      <h2 class="en">Hele-Shaw: two fixed glass plates</h2>
+      <h2 class="fa">Hele-Shaw: دو شیشه‌ی ساکن</h2>
+      <p class="en">The origin is in the middle of the gap. The top plate is at <span class="eq">z = +H/2</span>, the bottom plate at <span class="eq">z = −H/2</span>. Both are fixed.</p>
+      <p class="fa">مبدأ وسط فاصله است، نه روی شیشه. هر دو شیشه ساکن‌اند، پس قاعده‌ی ۱ برای هر دو صفر می‌دهد.</p>
+      <div class="q" data-a="0">
+        <p class="en">What is v<sub>x</sub> at z = +H/2 and at z = −H/2?</p>
+        <p class="fa">سرعت روی شیشه‌ی بالا و پایین چقدر است؟</p>
+        <div class="opts"><button>both 0</button><button>both maximum</button><button>top U, bottom 0</button></div>
+        <div class="fb" data-ok-en="Correct. Maximum speed is in the middle, at z = 0." data-ok-fa="درست. بیشترین سرعت وسط است، در z = 0." data-no-en="Both plates are fixed glass." data-no-fa="هر دو شیشه ساکن‌اند."></div>
+      </div>
+      <div class="ansbox en"><small>Write this in the exam:</small>v<sub>x</sub>(z = +H/2) = 0 &nbsp;&nbsp; v<sub>x</sub>(z = −H/2) = 0 &nbsp; (no-slip)</div>
+    </div>
+  </article>
+
+  <!-- 5 -->
+  <article class="card" data-scene="free">
+    <svg class="scene" viewBox="0 0 360 220"></svg>
+    <div class="body">
+      <div class="tag">Rule 2 · قاعده‌ی ۲ · Exam 2024, Problem 3(a)</div>
+      <h2 class="en">Free surface: air does not pull</h2>
+      <h2 class="fa">سطح آزاد: هوا سیال را نمی‌کشد</h2>
+      <p class="en">At a liquid–air surface there is no wall, so the velocity is <b>not</b> zero. Air is too thin to pull on the liquid, so the shear stress is zero: <span class="eq">∂v/∂z = 0</span>.</p>
+      <p class="fa">در شکل ببین: بالای مایع هوا است. سرعت آنجا بیشترین است، ولی منحنی آنجا عمودی می‌شود، یعنی شیب صفر است. «shear-free» یعنی همین.</p>
+      <div class="ansbox en"><small>Spin coating (2024), write this in the exam:</small>At z = h(t): ∂v<sub>r</sub>/∂z = 0 &nbsp; (shear-free)</div>
+      <div class="words"><span><b>free surface</b> = سطح آزاد</span><span><b>shear stress</b> = تنش برشی</span><span><b>shear-free</b> = بدون تنش برشی</span><span><b>slope</b> = شیب</span></div>
+      <div class="q" data-a="1">
+        <p class="en">At the free surface, which one is zero?</p>
+        <p class="fa">روی سطح آزاد، کدام صفر است؟</p>
+        <div class="opts"><button>the velocity v</button><button>the slope ∂v/∂z</button></div>
+        <div class="fb" data-ok-en="Correct. The fluid moves, but the profile is flat (vertical) there." data-ok-fa="درست. سیال حرکت می‌کند، ولی شیب پروفیل صفر است." data-no-en="Velocity is zero only at a wall. Here there is no wall." data-no-fa="سرعت فقط روی دیواره صفر است. این‌جا دیواره نیست."></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 6 -->
+  <article class="card" data-scene="two">
+    <svg class="scene" viewBox="0 0 360 220"></svg>
+    <div class="body">
+      <div class="tag">Rule 3 · قاعده‌ی ۳ · Exam 2024, Problem 2</div>
+      <h2 class="en">Two liquids meet: two conditions</h2>
+      <h2 class="fa">مرز دو مایع: دو شرط</h2>
+      <p class="en">(1) Same velocity: <span class="eq">v<sub>A</sub> = v<sub>B</sub></span>. (2) Same shear stress: <span class="eq">μ<sub>A</sub> ∂v<sub>A</sub>/∂y = μ<sub>B</sub> ∂v<sub>B</sub>/∂y</span>.</p>
+      <p class="fa">۱) دو مایع از هم جدا نمی‌شوند، پس سرعتشان در مرز برابر است. ۲) هر کدام به دیگری با همان نیرو فشار می‌آورد. در شکل، B غلیظ‌تر است (مثل عسل)، پس شیبش کمتر است. پروفیل در مرز «می‌شکند».</p>
+      <div class="words"><span><b>interface</b> = فصل مشترک، مرز دو مایع</span><span><b>viscosity μ</b> = گرانروی، غلظت</span><span><b>immiscible</b> = مخلوط‌نشدنی</span></div>
+      <div class="q" data-a="1">
+        <p class="en">Liquid B is more viscous (larger μ). At the interface, its slope is…</p>
+        <p class="fa">مایع B غلیظ‌تر است. شیبش در مرز چطور است؟</p>
+        <div class="opts"><button>larger</button><button>smaller</button><button>the same</button></div>
+        <div class="fb" data-ok-en="Correct. μ × slope must be equal, so bigger μ means a smaller slope." data-ok-fa="درست. μ × شیب برابر است، پس μ بزرگ‌تر یعنی شیب کوچک‌تر." data-no-en="μ × slope is the same on both sides." data-no-fa="حاصل‌ضرب μ در شیب در دو طرف برابر است."></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 7 -->
+  <article class="card" data-scene="none">
+    <div class="body">
+      <div class="tag">Summary · جمع‌بندی</div>
+      <h2 class="en">Three rules. That is all.</h2>
+      <h2 class="fa">فقط سه قاعده</h2>
+      <table class="sum">
+        <tr><td class="en"><b>Wall (fixed or moving)</b><br>v<sub>fluid</sub> = v<sub>wall</sub><br>fixed wall → v = 0</td><td>دیواره: سرعت سیال = سرعت دیواره. ساکن یعنی صفر.</td></tr>
+        <tr><td class="en"><b>Free surface (liquid–air)</b><br>∂v/∂z = 0 (shear-free)</td><td>سطح آزاد: شیب صفر. سرعت صفر نیست.</td></tr>
+        <tr><td class="en"><b>Two liquids (interface)</b><br>v<sub>A</sub> = v<sub>B</sub><br>μ<sub>A</sub> ∂v<sub>A</sub>/∂y = μ<sub>B</sub> ∂v<sub>B</sub>/∂y</td><td>مرز دو مایع: سرعت برابر و تنش برابر.</td></tr>
+      </table>
+      <p class="en" style="font-size:16px">With these three rules you can write the boundary conditions for every problem in both past exams.</p>
+      <p class="fa">با همین سه قاعده، شرط مرزی همه‌ی سؤال‌های هر دو امتحان قبلی را می‌توانی بنویسی. این یعنی چند نمره‌ی مطمئن در هر سؤال.</p>
+      <p class="calm">درس بعد: خط زدن جمله‌های اضافی معادله، با همین سبک تصویری و قدم‌به‌قدم.<br><span class="en">Next lesson: crossing out terms in the Navier–Stokes equation.</span></p>
+    </div>
+  </article>
+
+  <div class="nav">
+    <button id="prev">← Back · قبلی</button>
+    <button id="next" class="primary">Next · بعدی →</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+  function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()||'#888';}
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+
+  // regions: y0 = pixel where s=0, y1 = pixel where s=1, f(s) normalized speed 0..1
+  var X0=40, VMAX=230;
+  var scenes={
+    fixed:{regions:[{y0:180,y1:40,f:function(s){return 4*s*(1-s);}}],
+      walls:[{y:28,h:12,label:'fixed wall:  v = 0',ly:22},{y:180,h:12,label:'fixed wall:  v = 0',ly:208}]},
+    hele:{regions:[{y0:180,y1:40,f:function(s){return 4*s*(1-s);}}],
+      walls:[{y:28,h:12,label:'glass   z = +H/2:   vx = 0',ly:22},{y:180,h:12,label:'glass   z = −H/2:   vx = 0',ly:208}],
+      mid:'z = 0'},
+    moving:{regions:[{y0:180,y1:40,f:function(s){return s;}}],
+      walls:[{y:28,h:12,label:'moving plate:  v = U  →',ly:22,move:1},{y:180,h:12,label:'fixed plate:  v = 0',ly:208}]},
+    free:{regions:[{y0:180,y1:60,f:function(s){return s*(2-s);}}],
+      walls:[{y:180,h:12,label:'wall:  v = 0',ly:208}],
+      air:{y:60,label:'air  ·  free surface:  ∂v/∂z = 0'}},
+    two:{regions:[{y0:180,y1:110,f:function(s){return 0.25*s;},name:'B (thick, μB large)'},{y0:110,y1:40,f:function(s){return 0.25+0.75*s;},name:'A (thin, μA small)'}],
+      walls:[{y:28,h:12,label:'moving plate  →',ly:22,move:1},{y:180,h:12,label:'fixed plate',ly:208}],
+      iface:110},
+    wire:(function(){var k=0.4;function f(s){var r=k+(1-k)*s;return Math.log(1/r)/Math.log(1/k);}
+      return {regions:[{y0:96,y1:30,f:f},{y0:124,y1:190,f:f}],
+        walls:[{y:18,h:12,label:'die (fixed):  vz = 0  at r = r₂',ly:13},{y:190,h:12,label:'die (fixed):  vz = 0',ly:214},{y:96,h:28,label:'wire:  vz = U  at r = r₁  →',ly:114,move:1,wire:1}]};})()
+  };
+
+  var anim=null;
+  function build(svg,key){
+    var S=scenes[key]; svg.innerHTML='';
+    var fluid=css('--fluid'),ox=css('--oxide'),wall=css('--wall'),ink=css('--ink'),muted=css('--muted');
+    var defs=el('defs',{},svg);
+    var mk=el('marker',{id:'a'+key,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:5,markerHeight:5,orient:'auto'},defs);
+    el('path',{d:'M0 0L10 5L0 10z',fill:ox},mk);
+    if(S.air){el('rect',{x:0,y:0,width:360,height:S.air.y,fill:css('--air')},svg);}
+    S.regions.forEach(function(R){
+      var top=Math.min(R.y0,R.y1),h=Math.abs(R.y1-R.y0);
+      el('rect',{x:0,y:top,width:360,height:h,fill:css('--fluidbg')},svg);
+    });
+    // profile arrows + curve
+    var dots=[];
+    S.regions.forEach(function(R,ri){
+      var pts=[];
+      for(var i=0;i<=40;i++){var s=i/40;pts.push((X0+VMAX*R.f(s)).toFixed(1)+' '+(R.y0+(R.y1-R.y0)*s).toFixed(1));}
+      el('path',{d:'M'+pts.join(' L'),fill:'none',stroke:ox,'stroke-width':2.4},svg);
+      for(var j=1;j<7;j++){var s2=j/7,y=R.y0+(R.y1-R.y0)*s2,len=VMAX*R.f(s2);
+        if(len>8)el('line',{x1:X0,y1:y,x2:X0+len-2,y2:y,stroke:ox,'stroke-width':1.3,'marker-end':'url(#a'+key+')'},svg);
+        for(var d=0;d<3;d++){var c=el('circle',{cx:0,cy:y,r:3.2,fill:fluid},svg);dots.push({c:c,v:R.f(s2),x:d*120+j*17});}
+      }
+      if(R.name){var t=el('text',{x:352,y:(R.y0+R.y1)/2+4,'text-anchor':'end','font-size':12,fill:muted},svg);t.textContent=R.name;}
+    });
+    el('line',{x1:X0,y1:0,x2:X0,y2:220,stroke:muted,'stroke-width':1,'stroke-dasharray':'3 3'},svg);
+    if(S.iface){el('line',{x1:0,y1:S.iface,x2:360,y2:S.iface,stroke:ink,'stroke-width':1.2,'stroke-dasharray':'6 4'},svg);
+      var ti=el('text',{x:352,y:S.iface-6,'text-anchor':'end','font-size':12,fill:ink},svg);ti.textContent='interface';}
+    if(S.mid){var tm=el('text',{x:8,y:114,'font-size':12,fill:muted},svg);tm.textContent=S.mid;
+      var tmx=el('text',{x:X0+VMAX+6,y:114,'font-size':12,fill:ox},svg);tmx.textContent='max';}
+    if(S.air){el('line',{x1:0,y1:S.air.y,x2:360,y2:S.air.y,stroke:fluid,'stroke-width':2},svg);
+      var ta=el('text',{x:8,y:S.air.y-10,'font-size':13,fill:ink,'font-weight':600},svg);ta.textContent=S.air.label;}
+    var stripes=[];
+    S.walls.forEach(function(W){
+      el('rect',{x:0,y:W.y,width:360,height:W.h,fill:wall},svg);
+      if(W.move){for(var i=0;i<12;i++){var r=el('rect',{x:i*32,y:W.y+2,width:12,height:W.h-4,fill:css('--paper'),opacity:.55},svg);stripes.push({r:r,x:i*32});}}
+      var t=el('text',{x:8,y:W.ly,'font-size':13,fill:W.wire?css('--paper'):ink,'font-weight':600},svg);t.textContent=W.label;
+    });
+    return {dots:dots,stripes:stripes};
+  }
+  function run(state){
+    if(anim)cancelAnimationFrame(anim);anim=null;
+    if(!state)return;
+    function place(){state.dots.forEach(function(d){d.c.setAttribute('cx',(d.x%360).toFixed(1));});state.stripes.forEach(function(s){s.r.setAttribute('x',((s.x%384)-24).toFixed(1));});}
+    if(reduce){place();return;}
+    var last=performance.now();
+    function step(t){var dt=Math.min(50,t-last)/1000;last=t;
+      state.dots.forEach(function(d){d.x+=d.v*90*dt;});state.stripes.forEach(function(s){s.x+=90*dt;});place();anim=requestAnimationFrame(step);}
+    anim=requestAnimationFrame(step);
+  }
+
+  var cards=[].slice.call(document.querySelectorAll('.card'));
+  var dotsBox=document.getElementById('dots');
+  var done=JSON.parse(store('l1-done')||'[]');
+  cards.forEach(function(_,i){var b=document.createElement('button');b.setAttribute('aria-label','card '+(i+1));b.addEventListener('click',function(){go(i);});dotsBox.appendChild(b);});
+  var cur=0;
+  function go(i){
+    cur=Math.max(0,Math.min(cards.length-1,i));
+    cards.forEach(function(c,j){c.classList.toggle('on',j===cur);});
+    [].slice.call(dotsBox.children).forEach(function(b,j){b.classList.toggle('on',j===cur);b.classList.toggle('done',done.indexOf(j)>=0&&j!==cur);});
+    document.getElementById('prev').disabled=cur===0;
+    var nx=document.getElementById('next');nx.disabled=cur===cards.length-1;
+    var c=cards[cur],key=c.dataset.scene,svg=c.querySelector('.scene');
+    run(key!=='none'&&svg?build(svg,key):null);
+    store('l1-cur',String(cur));
+    window.scrollTo({top:0});
+  }
+  document.getElementById('prev').addEventListener('click',function(){go(cur-1);});
+  document.getElementById('next').addEventListener('click',function(){go(cur+1);});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);});
+
+  [].slice.call(document.querySelectorAll('.q')).forEach(function(q){
+    var a=+q.dataset.a,bs=[].slice.call(q.querySelectorAll('.opts button')),fb=q.querySelector('.fb');
+    bs.forEach(function(b,i){b.addEventListener('click',function(){
+      bs.forEach(function(x){x.classList.remove('ok','no');});
+      var ok=i===a;b.classList.add(ok?'ok':'no');
+      fb.innerHTML='<div class="en">'+(ok?fb.dataset.okEn:fb.dataset.noEn)+'</div><div class="fa">'+(ok?fb.dataset.okFa:fb.dataset.noFa)+'</div>';
+      if(ok){var idx=cards.indexOf(q.closest('.card'));if(done.indexOf(idx)<0){done.push(idx);store('l1-done',JSON.stringify(done));}}
+    });});
+  });
+  if(window.matchMedia){var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',function(){go(cur);});}
+  var saved=+(store('l1-cur')||0);go(isNaN(saved)?0:saved);
+})();
+</script>
+</body>
+</html>
